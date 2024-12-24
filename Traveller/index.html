@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveller</title>
+  <!-- Google Font for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #000000, #9D6381);
+      color: #a9e74e;
+    }
+
+    /* Landing Page Section */
+    .landing-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: left;
+      padding: 80px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 60px;
+      background: linear-gradient(145deg, #9D6381, #b3b1b1bc);
+      box-shadow: 0 10px 30px rgba(1, 1, 1, 0.238);
+      border-radius: 20px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    /* Header */
+    header h1 {
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      color: #612940;
+    }
+
+    header h1 span {
+      color: #FDECEF;
+    }
+
+    header p {
+      font-size: 1.2em;
+      text-align: center;
+      color: #612940;
+      margin-top: 5px;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .intro-text h2 {
+      font-size: 2.5em;
+      color: #612940;
+    }
+
+    .intro-text p {
+      font-size: 1em;
+      color: #0F110C;
+    }
+
+    .cta-button {
+      font-size: 1.2em;
+      background: linear-gradient(135deg, #502034, #9D6381);
+      margin-top: 20px;
+      color: #FDECEF;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px 5px rgba(157, 99, 129, 0.7);
+    }
+
+    .cta-button:hover {
+      background: linear-gradient(135deg, #9D6381, #612940);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px 10px rgba(28, 27, 27, 0.199);
+    }
+
+    .cta-button i {
+      margin-right: 10px;
+    }
+
+    .comic-preview {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .marquee {
+      display: flex;
+      animation: scroll 18s linear infinite;
+    }
+
+    .marquee img {
+      max-width: 300px;
+      height: auto;
+      margin: 0 15px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.395);
+      transition: transform 0.3s ease;
+    }
+
+    .marquee img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Admin Button */
+    .admin-login {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.9em;
+      background: #612940;
+      color: #FDECEF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .admin-login:hover {
+      background: #9D6381;
+      transform: translateY(-3px);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Admin Login Button -->
+  <button class="admin-login" onclick="adminLogin()">Admin Login</button>
+
+  <!-- Landing Page Container -->
+  <section class="landing-page">
+    <div class="container">
+      <header>
+        <h1>Welcome to <span>Traveller</span></h1>
+        <p>Your Gateway to Extraordinary Journeys</p>
+      </header>
+
+      <div class="hero">
+        <div class="intro-text">
+          <h2>Discover the World with Us</h2>
+          <p>Plan your next adventure with ease. Uncover hidden gems, explore iconic landmarks, and create unforgettable memories.</p>
+          <button class="cta-button" onclick="startExploring()">
+            <i class="fas fa-globe"></i> Start Exploring
+          </button>
+        </div>
+        <div class="comic-preview">
+          <div class="marquee">
+            <img src="img/bg1.jpg" alt="Destination 1">
+            <img src="img/bg2.jpg" alt="Destination 2">
+            <img src="img/bg3.jpg" alt="Destination 3">
+            <img src="img/bg4.jpg" alt="Destination 4">
+            <img src="img/bg5.jpg" alt="Destination 5">
+            <img src="img/bg6.jpg" alt="Destination 6">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Function to redirect user to explore page
+    function startExploring() {
+      alert("Get ready to explore amazing destinations!");
+      window.location.href = 'signup.html'; // Replace with actual URL
+    }
+
+    // Function to redirect admin to login page
+    function adminLogin() {
+      window.location.href = 'admin.html'; // Replace with actual admin login URL
+    }
+  </script>
+</body>
+</html>

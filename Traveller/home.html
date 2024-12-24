@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveller - Home</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #CECCCC, #637b9d, #689ac7);
+      color: #0F110C;
+      padding: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 15px 30px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 100; /* Ensures navbar stays on top */
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #502235;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 80px;
+    }
+
+    .navbar a:hover {
+      color: #FDECEF;
+    }
+
+    /* Burger Menu Styles */
+    .burger-menu {
+      position: absolute;
+      right: 20px; /* Fixed to the right side of the navbar */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .burger-menu i {
+      font-size: 1.8em;
+      color: #3c1827;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; /* Positioned below the burger menu */
+      right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+      border-radius: 10px;
+      z-index: 200; /* Ensures dropdown appears over the card container */
+      width: 150px;
+    }
+
+    .dropdown-menu li {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dropdown-menu li a {
+      text-decoration: none;
+      color: #3e1a29;
+      font-weight: bold;
+      display: block;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: #638d9d;
+      color: white;
+    }
+
+    /* Show dropdown when active */
+    .burger-menu.active .dropdown-menu {
+      display: block;
+    }
+
+    /* Cards Section */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+      position: relative;
+      z-index: 1; /* Keeps cards below the dropdown */
+    }
+
+    .card {
+      background: rgba(147, 207, 244, 0.425);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.299);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      font-size: 1.5em;
+      color: #351623;
+    }
+
+    .card-content p {
+      font-size: 1em;
+      color: #0F110C;
+      margin: 10px 0;
+    }
+
+    .card-content .price-distance {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .card-content .price {
+      font-size: 1.2em;
+      color: #010101;
+    }
+
+    .card-content .distance {
+      font-size: 1em;
+      color: #000000;
+    }
+
+    .card-content .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-content .actions button {
+      background: linear-gradient(135deg, #ff8bd4, #88d0ff);
+      border-color: #000000;
+      color: #000000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s, box-shadow 0.3s;
+
+    }
+
+    .card-content .actions button:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-content .actions .bookmark {
+      color: #594f53;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .card-content .actions .bookmark:hover {
+      color: #fa0000;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="home.html">Traveller</a>
+    <a href="facts.html">Facts</a>
+    <a href="confirmation.html">Your Bookings</a>
+    <a href="contact.html">Contact Us</a>
+    <!-- Fixed Burger Menu -->
+    <div class="burger-menu">
+      <i class="fas fa-bars"></i>
+      <!-- Dropdown Menu -->
+      <ul class="dropdown-menu">
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="suggest.html">Suggestions</a></li>
+        <a href="#" class="logout-btn" onclick="confirmLogout()">Logout</a>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Cards Section -->
+  <section class="cards-container">
+    <!-- Card 1 -->
+    <div class="card" data-id="1" data-name="kangra valley, Himachal Pradesh" data-description="The City of Lights awaits you!" data-price="50000" data-distance="10000" data-image="img/bg1.jpg">
+        <img src="img/bg1.jpg" alt="Destination 1">
+        <div class="card-content">
+          <h3>Kangra Valley, Himachal Pradesh</h3>
+          <p>The City of Lights awaits you!</p>
+          <div class="price-distance">
+            <span class="price">&#8377;50,000</span>
+            <span class="distance">10,000 km</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(1)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-id="2" data-name="Golden Temple, Amritsar" data-description="Experience the fusion of tradition and technology." data-price="80000" data-distance="7000" data-image="img/bg2.jpg">
+        <img src="img/bg2.jpg" alt="Destination 2">
+        <div class="card-content">
+          <h3>Golden Temple, Amritsar</h3>
+          <p>Experience the fusion of tradition and technology.</p>
+          <div class="price-distance">
+            <span class="price">&#8377;80,000</span>
+            <span class="distance">7000 km</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(2)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card" data-id="3" data-name="Hawa Mahal, Rajasthan" data-description="Relax in the turquoise waters and sandy beaches." data-price="60000" data-distance="2000" data-image="img/bg3.jpg">
+        <img src="img/bg3.jpg" alt="Destination 3">
+        <div class="card-content">
+          <h3>Hawa Mahal, Rajasthan</h3>
+          <p>Relax in the turquoise waters and sandy beaches.</p>
+          <div class="price-distance">
+            <span class="price">&#8377;60,000</span>
+            <span class="distance">2000</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(3)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+   
+      <div class="card" data-id="4" data-name="Ganga Ghat, Varanasi" data-description="Experience the fusion of tradition and technology." data-price="80000" data-distance="7000" data-image="img/bg4.jpg">
+        <img src="img/bg4.jpg" alt="Destination 4">
+        <div class="card-content">
+          <h3>Ganga Ghat, Varanasi</h3>
+          <p>Experience the fusion of tradition and technology.</p>
+          <div class="price-distance">
+            <span class="price">&#8377;80,000</span>
+            <span class="distance">7000 km</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(4)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card" data-id="5" data-name="Jatayu Earth Center, Kerala" data-description="Experience the fusion of tradition and technology." data-price="45000" data-distance="2500" data-image="img/bg5.jpg">
+        <img src="img/bg5.jpg" alt="Destination 5">
+        <div class="card-content">
+          <h3>Jatayu Earth Center, Kerala</h3>
+          <p>Experience the fusion of tradition and technology.</p>
+          <div class="price-distance">
+            <span class="price">&#8377;45,000</span>
+            <span class="distance">2500 km</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(5)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+
+     
+
+      <div class="card" data-id="6" data-name="Meenakshi Temple, Madurai" data-description="Experience the fusion of tradition and technology." data-price="68000" data-distance="9850" data-image="img/bg6.jpg">
+        <img src="img/bg6.jpg" alt="Destination 6">
+        <div class="card-content">
+          <h3>Meenakshi Temple, Madurai</h3>
+          <p>Experience the fusion of tradition and technology.</p>
+          <div class="price-distance">
+            <span class="price">&#8377;68,000</span>
+            <span class="distance">9850 km</span>
+          </div>
+          <div class="actions">
+              <button onclick="bookNow(6)">Book Now</button>
+              <i class="fas fa-bookmark bookmark"></i>
+          </div>
+        </div>
+      </div>
+  </section>
+
+</body>
+<script>
+  function confirmLogout() {
+    // Create a custom confirmation popup
+    const confirmationBox = document.createElement('div');
+    confirmationBox.style.position = 'fixed';
+    confirmationBox.style.top = '50%';
+    confirmationBox.style.left = '50%';
+    confirmationBox.style.transform = 'translate(-50%, -50%)';
+    confirmationBox.style.background = 'white';
+    confirmationBox.style.color = '#333';
+    confirmationBox.style.width = '300px';
+    confirmationBox.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+    confirmationBox.style.padding = '20px';
+    confirmationBox.style.borderRadius = '8px';
+    confirmationBox.style.textAlign = 'center';
+    confirmationBox.style.zIndex = '9999';
+
+    const message = document.createElement('p');
+    message.innerText = 'Do you really want to log out?';
+    message.style.marginBottom = '20px';
+    message.style.fontSize = '1.2rem';
+
+    const yesButton = document.createElement('button');
+    yesButton.innerText = 'Yes';
+    yesButton.style.backgroundColor = '#4a90e2';
+    yesButton.style.color = 'white';
+    yesButton.style.padding = '10px 20px';
+    yesButton.style.border = 'none';
+    yesButton.style.borderRadius = '5px';
+    yesButton.style.cursor = 'pointer';
+    yesButton.style.marginRight = '10px';
+    yesButton.onclick = () => {
+        window.location.href = 'logout.php';
+    };
+
+    const noButton = document.createElement('button');
+    noButton.innerText = 'No';
+    noButton.style.backgroundColor = '#f06';
+    noButton.style.color = 'white';
+    noButton.style.padding = '10px 20px';
+    noButton.style.border = 'none';
+    noButton.style.borderRadius = '5px';
+    noButton.style.cursor = 'pointer';
+    noButton.onclick = () => {
+        document.body.removeChild(confirmationBox);
+    };
+
+    confirmationBox.appendChild(message);
+    confirmationBox.appendChild(yesButton);
+    confirmationBox.appendChild(noButton);
+
+    document.body.appendChild(confirmationBox);
+}
+
+     // JavaScript for toggling dropdown menu
+document.querySelector('.burger-menu').addEventListener('click', function () {
+  this.classList.toggle('active');
+});
+
+
+    function bookNow(cardId) {
+      // Get the selected card element by data-id
+      const card = document.querySelector(`.card[data-id="${cardId}"]`);
+      
+      // Get the data from the card
+      const name = card.getAttribute('data-name');
+      const description = card.getAttribute('data-description');
+      const price = card.getAttribute('data-price');
+      const distance = card.getAttribute('data-distance');
+      const image = card.getAttribute('data-image');
+      
+      // Create the query string to pass as URL parameters
+      const queryString = `?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&price=${encodeURIComponent(price)}&distance=${encodeURIComponent(distance)}&image=${encodeURIComponent(image)}`;
+      
+      // Redirect to book.html with the query string
+      window.location.href = `book.html${queryString}`;
+    }
+  </script>
+  
+</html>

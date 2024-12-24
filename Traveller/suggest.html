@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestion Box</title>
+</head>
+<style>
+    /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #f06, #4a90e2);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for Form */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Container */
+.form-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Header Styling */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* Input Group Styling */
+.input-group {
+    margin-bottom: 20px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+/* Submit Button */
+.submit-btn {
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #3a7bbd;
+}
+
+/* Thank You Message */
+.thank-you-message {
+    display: none;
+    font-size: 1.5rem;
+    color: #4a90e2;
+    margin-top: 20px;
+}
+
+.thank-you-message h2 {
+    font-size: 2.5rem;
+}
+
+/* Back Button */
+.back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f06;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #d05c9b;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .submit-btn {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Share Your Suggestion</h1>
+            <p>We value your feedback. Please share your suggestions below:</p>
+            <form id="suggestionForm" action="submit_suggestion.php" method="POST">
+                <div class="input-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="suggestion">Suggestion:</label>
+                    <textarea id="suggestion" name="suggestion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+        <div class="thank-you-message" id="thankYouMessage">
+            <h2>Thank You for Your Suggestion!</h2>
+            <p>Your feedback helps us improve.</p>
+            <button class="back-btn" onclick="window.location.href='home.html';">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+       const form = document.getElementById('suggestionForm');
+const thankYouMessage = document.getElementById('thankYouMessage');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent form default submission behavior
+
+    // Collect form data
+    const formData = new FormData(form);
+
+    try {
+        // Send data to the server
+        const response = await fetch('submit_suggestion.php', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.text(); // Get response from the server
+        console.log(result); // Optional: log response for debugging
+
+        if (response.ok) {
+            // Show thank you message and hide the form
+            form.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+        } else {
+            alert('Error: Unable to submit your suggestion. Please try again later.');
+        }
+    } catch (error) {
+        console.error('Error submitting the form:', error);
+        alert('An error occurred while submitting your suggestion.');
+    }
+});
+
+    </script>
+</body>
+</html>

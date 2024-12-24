@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Your Trip</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Use the same CSS from the previous code */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #CECCCC, #9D6381);
+      color: #0F110C;
+      padding: 20px;
+    }
+
+   
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 15px 30px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 100; /* Ensures navbar stays on top */
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #502235;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 80px;
+    }
+
+    .navbar a:hover {
+      color: #FDECEF;
+    }
+
+    /* Burger Menu Styles */
+    .burger-menu {
+      position: absolute;
+      right: 20px; /* Fixed to the right side of the navbar */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .burger-menu i {
+      font-size: 1.8em;
+      color: #3c1827;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; /* Positioned below the burger menu */
+      right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+      border-radius: 10px;
+      z-index: 200; /* Ensures dropdown appears over the card container */
+      width: 150px;
+    }
+
+    .dropdown-menu li {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dropdown-menu li a {
+      text-decoration: none;
+      color: #3e1a29;
+      font-weight: bold;
+      display: block;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: #638d9d;
+      color: white;
+    }
+
+    /* Show dropdown when active */
+    .burger-menu.active .dropdown-menu {
+      display: block;
+    }
+    /* Book Page Styles */
+    .book-container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    .book-container h2 {
+      text-align: left;
+      font-weight: bold;
+      color: #ff1b7a;
+    }
+
+    .destination-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .travel-options {
+      margin-top: 20px;
+    }
+
+    .travel-options label {
+      display: flex;
+      align-items: center;
+      font-size: 1.2em;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .travel-options input {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    .travel-options i {
+      margin-right: 10px;
+      font-size: 1.5em;
+      color: #295061;
+    }
+
+    .book-it-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #9D6381, #FDECEF);
+      color: #fff;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      margin-top: 20px;
+    }
+
+    .book-it-btn:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Additional styles for description box */
+    .description-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      font-weight: bold;
+      color: #295061;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #9D6381;
+      color: #fff;
+      font-size: 1.1em;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .read-more-btn:hover {
+      background-color: #612940;
+    }
+
+    #goHomeBtn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+        }
+        #goHomeBtn:hover {
+            color: #007bff;
+        }
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <i class="fa-solid fa-arrow-right-from-bracket" id="goHomeBtn"></i>
+        <a href="home.html">Traveller</a>
+        <a href="#">Facts</a>
+        <a href="#">Destinations</a>
+        <a href="#">Your Bookings</a>
+        <a href="#">Contact Us</a>
+        <!-- Fixed Burger Menu -->
+        <div class="burger-menu">
+          <i class="fas fa-bars"></i>
+          <!-- Dropdown Menu -->
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="#">Suggestions</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+  <div class="book-container">
+    <h2>Book Your Trip to <span id="destination-name"></span></h2>
+    <p id="destination-description"></p>
+    <img id="destination-image" class="destination-img" src="" alt="Destination">
+    <p id="destination-price"></p>
+    <p id="destination-distance"></p>
+
+    <!-- Description Box -->
+    <div class="description-box">
+      <h3>Description of the Destination:</h3>
+      <p id="predefined-description">This destination offers beautiful landscapes, rich cultural heritage, and an abundance of activities suitable for all travelers.</p>
+      
+      <!-- Read More Button -->
+      <a href="fact.html" class="read-more-btn">Read More</a>
+    </div>
+
+    <!-- Travel Options -->
+    <div class="travel-options">
+      <h3>Select your mode of travel:</h3>
+      
+      <label>
+        <input type="checkbox" id="road" value="road">
+        <i class="fas fa-car"></i> By Road 
+      </label>
+      <label>
+        <input type="checkbox" id="waterway" value="waterway">
+        <i class="fas fa-ship"></i> By waterway
+      </label>
+      <label>
+        <input type="checkbox" id="airway" value="airway">
+        <i class="fas fa-plane"></i> By Airway 
+      </label>
+    </div>
+
+    <!-- Book Button -->
+    <button class="book-it-btn">Book It</button>
+  </div>
+
+  <script>
+   // JavaScript for toggling dropdown menu
+document.querySelector('.burger-menu').addEventListener('click', function () {
+  this.classList.toggle('active');
+});
+
+
+ // Add an event listener to the icon
+ document.getElementById('goHomeBtn').addEventListener('click', function() {
+            // Redirect to home.html when the icon is clicked
+            window.location.href = 'home.html';
+        });
+
+
+
+    // Get query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const destinationName = urlParams.get('name');
+    const description = urlParams.get('description');
+    const price = urlParams.get('price');
+    const distance = urlParams.get('distance');
+    const imageSrc = urlParams.get('image');
+
+    // Display the destination info
+    document.getElementById('destination-name').textContent = destinationName;
+    document.getElementById('destination-description').textContent = description;
+    document.getElementById('destination-price').textContent = 'Price: ₹' + price;
+    document.getElementById('destination-distance').textContent = 'Distance: ' + distance;
+    document.getElementById('destination-image').src = imageSrc;
+
+    // Handle the "Book It" button click
+    document.querySelector('.book-it-btn').addEventListener('click', function () {
+      const selectedTravelOptions = [];
+      
+      if (document.getElementById('road').checked) selectedTravelOptions.push('Road');
+      if (document.getElementById('waterway').checked) selectedTravelOptions.push('Waterway');
+      if (document.getElementById('airway').checked) selectedTravelOptions.push('Airway');
+
+      if (selectedTravelOptions.length > 0) {
+        alert('Booking successful! You chose: ' + selectedTravelOptions.join(', '));
+        // Redirect to a confirmation page or show a success message
+        window.location.href = 'confirmation.html'; // Example redirection
+      } else {
+        alert('Please select a mode of travel.');
+      }
+    });
+
+    document.querySelector('.book-it-btn').addEventListener('click', function () {
+  const selectedTravelOptions = [];
+  
+  if (document.getElementById('road').checked) selectedTravelOptions.push('Road');
+  if (document.getElementById('waterway').checked) selectedTravelOptions.push('Waterway');
+  if (document.getElementById('airway').checked) selectedTravelOptions.push('Airway');
+
+  if (selectedTravelOptions.length > 0) {
+    const title = document.getElementById('destination-name').textContent;
+    const description = document.getElementById('destination-description').textContent;
+    const image = document.getElementById('destination-image').src;
+    const price = document.getElementById('destination-price').textContent.replace('Price: ₹', '');
+    const distance = document.getElementById('destination-distance').textContent.replace('Distance: ', '');
+    const travelMode = selectedTravelOptions.join(', ');
+
+    // Create a FormData object to send via AJAX
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('image', image);
+    formData.append('price', price);
+    formData.append('distance', distance);
+    formData.append('travel_mode', travelMode);
+
+    // Send data to PHP script
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'book.php', true);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        alert('Booking successful!');
+        // Redirect to confirmation page or display success message
+        window.location.href = 'confirmation.html';
+      } else {
+        alert('Booking failed. Please try again.');
+      }
+    };
+    xhr.send(formData);
+  } else {
+    alert('Please select a mode of travel.');
+  }
+});
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <!-- Link to Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #523449a5 0%, #bfe1efb9 100%);
+    padding: 20px;
+    color: #333;
+    margin: 0;
+    min-height: 100vh;
+  }
+/* Navbar */
+.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 15px 30px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 100; /* Ensures navbar stays on top */
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #502235;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 80px;
+    }
+
+    .navbar a:hover {
+      color: #FDECEF;
+    }
+
+    /* Burger Menu Styles */
+    .burger-menu {
+      position: absolute;
+      right: 20px; /* Fixed to the right side of the navbar */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .burger-menu i {
+      font-size: 1.8em;
+      color: #3c1827;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; /* Positioned below the burger menu */
+      right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+      border-radius: 10px;
+      z-index: 200; /* Ensures dropdown appears over the card container */
+      width: 150px;
+    }
+
+    .dropdown-menu li {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dropdown-menu li a {
+      text-decoration: none;
+      color: #3e1a29;
+      font-weight: bold;
+      display: block;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: #638d9d;
+      color: white;
+    }
+
+    /* Show dropdown when active */
+    .burger-menu.active .dropdown-menu {
+      display: block;
+    }
+    /* Book Page Styles */
+    .book-container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      width: 60%;
+      margin: 0 auto;
+    }
+
+  /* Confirmation Container */
+  .confirmation-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 900px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: #5b2c6f;
+    margin-bottom: 20px;
+  }
+
+  .booking-details {
+    margin-top: 20px;
+  }
+
+  .booking-details p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  /* Details Table */
+  .details-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .details-table th, .details-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .details-table th {
+    background-color: #9d6381;
+    color: white;
+  }
+
+  .details-table td {
+    background-color: #f9f9f9;
+  }
+
+  /* Buttons */
+  .go-home-btn, .download-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #9D6381;
+    color: #fff;
+    font-size: 1.2em;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .go-home-btn:hover, .download-btn:hover {
+    background-color: #612940;
+  }
+
+  /* Cancel Button */
+  .cancel-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .cancel-btn:hover {
+    background-color: #c0392b;
+  }
+
+ 
+  #goHomeBtn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+        }
+        #goHomeBtn:hover {
+            color: #007bff;
+        }
+
+</style>
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <i class="fa-solid fa-arrow-right-from-bracket" id="goHomeBtn"></i>
+        <a href="home.html">Traveller</a>
+        <a href="#">Facts</a>
+        <a href="confirmation.html">Your Bookings</a>
+        <a href="#">Contact Us</a>
+        <!-- Fixed Burger Menu -->
+        <div class="burger-menu">
+          <i class="fas fa-bars"></i>
+          <!-- Dropdown Menu -->
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="#">Suggestions</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+    </nav>
+
+  <div class="confirmation-container">
+    <h1>Booking Confirmation</h1>
+    <p>Thank you for booking with us! Here are the details of your trip:</p>
+
+    <div class="booking-details">
+      <!-- Booking details will be dynamically inserted here by JavaScript -->
+      <table class="details-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Distance</th>
+            <th>Travel Mode</th>
+            <th>Booking Date & Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookingDetails">
+          <!-- Dynamic booking details will go here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Button to go back to the home page -->
+    <a href="book.html" class="go-home-btn">Go Back</a>
+    <a href="#" class="download-btn" id="downloadBtn">Download Details</a>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  // JavaScript for toggling dropdown menu
+  document.querySelector('.burger-menu').addEventListener('click', function () {
+    this.classList.toggle('active');
+  });
+
+  // Add an event listener to the icon
+  document.getElementById('goHomeBtn').addEventListener('click', function() {
+    // Redirect to home.html when the icon is clicked
+    window.location.href = 'home.html';
+  });
+
+  $(document).ready(function() {
+    // Fetch booking details using AJAX
+    $.ajax({
+      url: 'fetch_booking_details.php', // PHP file that returns the booking details
+      method: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        if (response.length > 0) {
+          // Loop through the response and append to the table
+          response.forEach(function(booking) {
+            $('#bookingDetails').append(
+              `<tr id="booking-${booking.id}">
+                <td>${booking.title}</td>
+                <td>${booking.description}</td>
+                <td>₹${booking.price}</td>
+                <td>${booking.distance}</td>
+                <td>${booking.travel_mode}</td>
+                <td>${booking.booking_date}</td>
+                <td><button class="cancel-btn" data-booking-id="${booking.id}">Cancel Booking</button></td>
+              </tr>`
+            );
+          });
+
+          // Add event listeners for cancel buttons
+          $('.cancel-btn').on('click', function() {
+            var bookingId = $(this).data('booking-id');
+            // Make AJAX call to cancel the booking
+            $.ajax({
+              url: 'cancel_booking.php',
+              method: 'POST',
+              data: { booking_id: bookingId },
+              success: function(response) {
+                if (response.success) {
+                  // Remove the booking from the table
+                  $('#booking-' + bookingId).remove();
+                  alert('Booking Cancelled');
+                } else {
+                  alert('refresh to update booking.');
+                }
+              },
+              error: function() {
+                alert('refresh to update booking.');
+              }
+            });
+          });
+        } else {
+          $('#bookingDetails').append('<tr><td colspan="7">No bookings found</td></tr>');
+        }
+      },
+      error: function() {
+        $('#bookingDetails').append('<tr><td colspan="7">Error fetching data.</td></tr>');
+      }
+    });
+
+    // Add event listener for the download button to generate PDF
+    $('#downloadBtn').on('click', function() {
+      var bookingDetails = [];
+      $('#bookingDetails tr').each(function() {
+        var row = $(this);
+        var rowData = {
+          title: row.find('td:nth-child(1)').text(),
+          description: row.find('td:nth-child(2)').text(),
+          price: row.find('td:nth-child(3)').text(),
+          distance: row.find('td:nth-child(4)').text(),
+          travel_mode: row.find('td:nth-child(5)').text(),
+          booking_date: row.find('td:nth-child(6)').text()
+        };
+        bookingDetails.push(rowData);
+      });
+
+      // Create a PDF document
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Add title
+      doc.setFontSize(18);
+      doc.text("Booking Details", 14, 20);
+
+      // Add details row by row
+      const titleColumnWidth = 180;
+      const spacing = 10; // Space between rows
+      let yPosition = 30;
+
+      bookingDetails.forEach(function(booking, index) {
+        // Title Row
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text("Title:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.title, 60, yPosition);
+        yPosition += spacing;
+
+        // Description Row
+        doc.setFont('helvetica', 'bold');
+        doc.text("Description:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.description, 60, yPosition);
+        yPosition += spacing;
+
+        // Price Row
+        doc.setFont('helvetica', 'bold');
+        doc.text("Price:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.price, 60, yPosition);
+        yPosition += spacing;
+
+        // Distance Row
+        doc.setFont('helvetica', 'bold');
+        doc.text("Distance:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.distance, 60, yPosition);
+        yPosition += spacing;
+
+        // Travel Mode Row
+        doc.setFont('helvetica', 'bold');
+        doc.text("Travel Mode:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.travel_mode, 60, yPosition);
+        yPosition += spacing;
+
+        // Booking Date Row
+        doc.setFont('helvetica', 'bold');
+        doc.text("Booking Date:", 14, yPosition);
+        doc.setFont('helvetica', 'normal');
+        doc.text(booking.booking_date, 60, yPosition);
+        yPosition += spacing;
+
+        // Add a separator after each booking's details
+        if (index < bookingDetails.length - 1) {
+          doc.setLineWidth(0.5);
+          doc.line(14, yPosition, 200, yPosition);
+          yPosition += 10;
+        }
+      });
+
+      // Save the PDF
+      doc.save("booking_details.pdf");
+    });
+  });
+</script>
+
+
+  
+</html>

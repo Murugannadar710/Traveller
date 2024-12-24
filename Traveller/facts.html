@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facts About Tourist Places in India</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #d4f2fa7d;
+      padding: 20px;
+      color: #333;
+    }
+
+   /* Navbar */
+   .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 15px 30px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 100; /* Ensures navbar stays on top */
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #502235;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 80px;
+    }
+
+    .navbar a:hover {
+      color: #FDECEF;
+    }
+
+    /* Burger Menu Styles */
+    .burger-menu {
+      position: absolute;
+      right: 20px; /* Fixed to the right side of the navbar */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .burger-menu i {
+      font-size: 1.8em;
+      color: #3c1827;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; /* Positioned below the burger menu */
+      right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+      border-radius: 10px;
+      z-index: 200; /* Ensures dropdown appears over the card container */
+      width: 150px;
+    }
+
+    .dropdown-menu li {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dropdown-menu li a {
+      text-decoration: none;
+      color: #3e1a29;
+      font-weight: bold;
+      display: block;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: #638d9d;
+      color: white;
+    }
+
+    /* Show dropdown when active */
+    .burger-menu.active .dropdown-menu {
+      display: block;
+    }
+
+    .facts-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #58102b;
+      margin-bottom: 30px;
+    }
+
+    .fact-item {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .fact-item p {
+      font-size: 1.2rem;
+      color: #000000;
+      margin: 0;
+      flex: 1;
+    }
+
+    .icon-container {
+      display: flex;
+      gap: 15px;
+    }
+
+    .icon-container i {
+      font-size: 1.5em;
+      color: #502235;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .icon-container i:hover {
+      color: #FDECEF;
+      transform: scale(1.2);
+    }
+
+    .share-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000; /* Ensure it appears on top of other elements */
+  }
+
+    .share-menu a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      gap: 10px;
+      font-size: 1rem;
+      padding: 5px;
+    }
+
+    .share-menu a:hover {
+      color: #fff;
+      background: #502235;
+      border-radius: 4px;
+    }
+
+    .share-menu a i {
+      font-size: 1.2em;
+    }
+
+    
+    #goHomeBtn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+        }
+        #goHomeBtn:hover {
+            color: #007bff;
+        }
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <i class="fa-solid fa-arrow-right-from-bracket" id="goHomeBtn"></i>
+        <a href="home.html">Traveller</a>
+        <a href="#">Facts</a>
+        <a href="#">Destinations</a>
+        <a href="#">Your Bookings</a>
+        <a href="#">Contact Us</a>
+        <!-- Fixed Burger Menu -->
+        <div class="burger-menu">
+          <i class="fas fa-bars"></i>
+          <!-- Dropdown Menu -->
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="#">Suggestions</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+  <div class="facts-container">
+    <h1>Interesting Facts About Tourist Places in India</h1>
+    
+    <div id="facts-list">
+      <!-- Facts will be dynamically added by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+
+       // JavaScript for toggling dropdown menu
+document.querySelector('.burger-menu').addEventListener('click', function () {
+  this.classList.toggle('active');
+});
+
+
+ // Add an event listener to the icon
+ document.getElementById('goHomeBtn').addEventListener('click', function() {
+            // Redirect to home.html when the icon is clicked
+            window.location.href = 'home.html';
+        });
+
+
+    const facts = [
+      "The Taj Mahal changes color depending on the time of day.",
+      "Jaipur's Hawa Mahal has 953 small windows called 'jharokhas'.",
+      "The Konark Sun Temple is designed in the shape of a giant chariot.",
+      "Varanasi is one of the oldest inhabited cities in the world.",
+      "The Great Living Chola Temples are UNESCO World Heritage Sites.",
+      "The Golden Temple in Amritsar feeds thousands daily for free.",
+      "The Ajanta and Ellora Caves showcase ancient Indian art.",
+      "Rishikesh is known as the 'Yoga Capital of the World'.",
+      "The Sundarbans are the largest tidal halophytic mangrove forests.",
+      "Kaziranga National Park has the highest density of one-horned rhinos."
+    ];
+
+    const factsList = document.getElementById('facts-list');
+facts.forEach((fact, index) => {
+  const factItem = document.createElement('div');
+  factItem.className = 'fact-item';
+
+  const factText = document.createElement('p');
+  factText.textContent = `${index + 1}. ${fact}`;
+
+  const iconContainer = document.createElement('div');
+  iconContainer.className = 'icon-container';
+
+  const heartIcon = document.createElement('i');
+  heartIcon.className = 'fa-solid fa-heart';
+  heartIcon.title = 'Like';
+
+  const likeCount = document.createElement('span');
+  likeCount.textContent = '0';
+  likeCount.style.marginLeft = '10px';
+  likeCount.style.color = '#502235';
+  likeCount.style.fontWeight = 'bold';
+
+  heartIcon.addEventListener('click', () => {
+    const factId = index + 1; // Assuming fact IDs are sequential
+
+    // Send like request to the backend
+    fetch('update_likes.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `fact_id=${factId}`,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          likeCount.textContent = data.like_count;
+          heartIcon.style.color = '#fc1e35'; // Highlight the heart icon
+        } else {
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+
+  const shareIcon = document.createElement('i');
+  shareIcon.className = 'fa-solid fa-share';
+  shareIcon.title = 'Share';
+
+  const shareMenu = document.createElement('div');
+  shareMenu.className = 'share-menu';
+  shareMenu.innerHTML = `
+    <a href="#" title="Share on Instagram"><i class="fab fa-instagram"></i>Instagram</a>
+    <a href="#" title="Share on Snapchat"><i class="fab fa-snapchat"></i>Snapchat</a>
+    <a href="#" title="Share on Facebook"><i class="fab fa-facebook"></i>Facebook</a>
+    <a href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+  `;
+
+  shareIcon.addEventListener('click', () => {
+    const isMenuVisible = shareMenu.style.display === 'flex';
+    shareMenu.style.display = isMenuVisible ? 'none' : 'flex';
+  });
+
+  iconContainer.appendChild(heartIcon);
+  iconContainer.appendChild(likeCount);
+  iconContainer.appendChild(shareIcon);
+  factItem.appendChild(factText);
+  factItem.appendChild(iconContainer);
+  factItem.appendChild(shareMenu);
+
+  factsList.appendChild(factItem);
+});
+
+  </script>
+</body>
+</html>
